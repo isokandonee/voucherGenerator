@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Voucher Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css"> -->
+    <!-- <script src="main.js"></script> -->
+    <style>
+        body{
+            background-color: lightcyan;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        table{
+            border:1px solid black;
+            width: 70%;
+            margin-top: 50px;
+            padding: 5px;
+        }
+        input{
+            width: 100%;
+            height: 50px;
+            font-size: 1.5em;
+            /* border-radius: 5px; */
+        }
+        div{
+            height: 100%;
+            /* border: 1px solid black; */
+            font-size: 2em;
+        }
+        td{
+            padding: 5px;
+            border: 1px solid black;
+        }
+        .tr2 input{
+            background-color: rgb(24, 109, 165);
+            color: antiquewhite;
+        }
+        .tr2 input:hover{
+            background: rgb(38, 140, 204);
+            color: white;
+        }
+        .tr p{
+            font-size: 3em;
+            padding: 5px;
+            margin: 0;
+            /* border: 1px solid black; */
+            color: purple;
+        }
+    </style>
+</head>
+<body>
+    <table align="center">
+        <tr align="center"><td colspan="4" style="color:red;"><p id="err"></p></td></tr>
+        <tr class="tr" align="center"><td colspan="4"><p>Voucher Generator</p></td></tr>
+        <tr class="tr1"><td><input type="text" id="number" placeholder="Number to generate"></td><td><input type="text" id="amount" placeholder="Amount from 100 to 1000"></td><td><input type="text" placeholder="Voucher" disabled></td><td><input type="text" id="screen" placeholder="Load voucher here"></td></tr>
+        <tr class="tr2"><td><input type="button" id="generate" value="Generate Voucher"></td><td><input type="button" onclick="display()" id="available" value="Available Voucher"></td><td><input type="button" id="load" value="Load"></td><td><input type="button" id="balance" onclick="balance()" value="Balance"></td></tr>
+                <tr class="tr3"><td colspan="4"><div id="display"></div></td></tr>
+    </table>
+
+    <script>
+        var num = document.getElementById('number');
+        var scr = document.getElementById('screen');
+        var gen = document.getElementById('generate');
+        var av = document.getElementById('available');
+        var lo = document.getElementById('load');
+        var bal = document.getElementById('balance');
+        var am = document.getElementById('amount');
+        var dis = document.getElementById('display');
+        var error = document.getElementById('err');
+        var some = false;
+        // var vouch;
+        generate.addEventListener('click', function() {
+        var vL, str;
+        var vList = [];
+            if (num.value != "" && num.value < 1000 && am.value > 99 && am.value <= 1000) {
+                error.innerHTML = "";
+                for (let i = 0; i < number.value; i++) {
+                        vL = []; str ="";
+                            counter = 0;
+
+                    for (let i = 0; i < 16; i++) {
+                            var rand = Math.floor(Math.random()*10);
+                            str+=rand;
+                            counter++;
+                        // while(counter == 4 && vL.length < 12){
+                        // for (let i = 0; i < 16; i++) {
+                            if (counter === 4 && str.length < 16) {
+                                str += "-";
+                                counter = 0;
+                            }
+                            
+                        // }
+                        // }
+                        // vL += ", "+ am.value+' Unused'+'<br>';
+                        // vL += ;
+                    } 
+                    vL.push(str, am.value, "Unused");
+                    vList.push(vL);
+                    console.log(vL);
+                    console.log(vL.length);
+                }
+                var vouch = JSON.stringify(vList);
+                localStorage.setItem("oursVoucher", vouch);
+                // var m = localStorage.getItem('ourVoucher');
+                displayNow();
+                // console.log(m);
+            }
+            else{
+                error.innerHTML = "Number of card to load and the amount cannot be empty or less than 100 or more than 1000";
+            }
+        })
+        // displayNow();
+        function display(){
+            var vList = JSON.parse(localStorage.getItem("oursVoucher"));
+            // var myVouch = vouch;
+            for (let i = 0; i < vList.length; i++) {
+                dis.innerHTML += vList[i]+"<br>";
+            dis.innerHTML += "<br>";
+            }
+            // displayNow();
+            console.log(vList);
+        }
+        function displayNow(){
+            
+            for (let i = 0; i < vList.length; i++) {
+                dis.innerHTML += vList[i]+"<br>";
+            }
+        }
+        av.onclick = function(){
+
+        }
+        lo.addEventListener('click', function(){
+
+        })
+        function balance(){
+
+        }
+    </script>
+</body>
+</html>
